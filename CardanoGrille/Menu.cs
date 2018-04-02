@@ -5,19 +5,51 @@ namespace CardanoGrille
 {
     class Menu
     {
-        private readonly string[] ITEMS_MENU_CODING = {
+        private readonly string[] ITEMS_MENU_CODING =
+        {
             "1.Закодувати текст",
             "2.Розкодувати текст",
             "3.Декодувати текст",
-            "0.Вихiд"};
-        private readonly string[] ITEMS_MENU_READING_TEXT = {
+            "0.Вихiд"
+        };
+        private readonly string[] KEYS =
+        {
+            "1. " +
+            "\n\r 0 1 0 0 ," +
+            "\r\n 1 0 0 0 ," +
+            "\n\r 0 0 1 0 ," +
+            "\n\r 0 0 0 1",
+            "2. " +
+            "\n\r 0 0 1 0 ," +
+            "\n\r 0 0 0 1 ," +
+            "\n\r 0 1 0 0 ," +
+            "\n\r 1 0 0 0",
+            "3. " +
+            "\n\r 1 0 0 0 ," +
+            "\n\r 0 1 0 0 ," +
+            "\n\r 0 0 0 1 ," +
+            "\n\r 0 0 1 0",
+            "4. " +
+            "\n\r 0 0 0 1 ," +
+            "\n\r 0 0 1 0 ," +
+            "\n\r 1 0 0 0 ," +
+            "\n\r 0 1 0 0",
+            "0.Вихiд"
+        };
+
+        private readonly string[] ITEMS_MENU_READING_TEXT =
+        {
             "1.Зчитати текст з файлу",
             "2.Зчитати текст з консолi",
-            "0.Вихiд в головне меню"};
-        private readonly string[] ITEMS_MENU_WRITE_TEXT = {
+            "0.Вихiд в головне меню"
+        };
+
+        private readonly string[] ITEMS_MENU_WRITE_TEXT =
+        {
             "1.Записати отриманий текст у файлу",
             "2.Вивiд отриманий тексту на консолi",
-            "0.Вихiд в головне меню"};
+            "0.Вихiд в головне меню"
+        };
 
         private const int ENCODE_TEXT_REQUEST = 1;
         private const int DECODE_TEXT_REQUEST = 2;
@@ -40,13 +72,11 @@ namespace CardanoGrille
         private const string _messageWriteFile = " зчитування з файлу";
         private const string _message = "*******************************************";
 
-        public void Show()
-        {
+        public void Show(){
             WelcomMenu();
         }
 
-        private void WelcomMenu()
-        {
+        private void WelcomMenu(){
             while (true)
             {
                 Console.WriteLine(_message);
@@ -55,6 +85,7 @@ namespace CardanoGrille
                 {
                     Console.WriteLine(item);
                 }
+
                 try
                 {
                     int number = Int32.Parse(Console.ReadLine());
@@ -76,6 +107,7 @@ namespace CardanoGrille
                                 isExit = true;
                                 break;
                         }
+
                         if (isExit)
                         {
                             break;
@@ -93,34 +125,32 @@ namespace CardanoGrille
             }
         }
 
-        private void EncodingItem()
-        {
+        private void EncodingItem(){
             CodingItem(TypeCoding.ENCODING);
         }
 
-        private void DecodingItem()
-        {
+        private void DecodingItem(){
             CodingItem(TypeCoding.DECODING);
         }
 
-        private void CodingItem(TypeCoding typeCoding)
-        {
+        private void CodingItem(TypeCoding typeCoding){
             StringBuilder resultMenuFile = ReadDataMenu();
             if (resultMenuFile != null)
             {
                 CardanoGrille cardanoGrille = new CardanoGrille();
-                int? num = GerKeyMenu();
+                int? num = GetKeyMenu();
                 if (num != null)
                 {
                     StringBuilder result = null;
                     if (typeCoding == TypeCoding.ENCODING)
                     {
-                        result = cardanoGrille.EncodingUA(resultMenuFile, (int)num);
+                        result = cardanoGrille.EncodingUA(resultMenuFile, GrilleKeys.Keys[((int)num-1)]);
                     }
                     else
                     {
-                        result = cardanoGrille.DecodingUA(resultMenuFile, (int)num);
+                        result = cardanoGrille.DecodingUA(resultMenuFile, GrilleKeys.Keys[((int)num - 1)]);
                     }
+
                     if (result != null)
                     {
                         WriteDataMenu(result);
@@ -137,8 +167,7 @@ namespace CardanoGrille
             }
         }
 
-        private void DecodingWithoutKeyItem()
-        {
+        private void DecodingWithoutKeyItem(){
             StringBuilder resultMenuFile = ReadDataMenu();
             if (resultMenuFile != null)
             {
@@ -155,15 +184,18 @@ namespace CardanoGrille
             }
         }
 
-        private int? GerKeyMenu()
-        {
+        private int? GetKeyMenu(){
             Console.WriteLine(_message);
 
             Console.WriteLine(_messageKey);
+            foreach (string key in KEYS)
+            {
+                Console.WriteLine(key);
+            }
             try
             {
                 int number = Int32.Parse(Console.ReadLine());
-                if (IsCorrect(number, UA_Alphabet.AlphabetLength))
+                if (IsCorrect(number, 4))
                 {
                     return number;
                 }
@@ -179,8 +211,7 @@ namespace CardanoGrille
             }
         }
 
-        private StringBuilder ReadDataMenu()
-        {
+        private StringBuilder ReadDataMenu(){
             while (true)
             {
                 Console.WriteLine(_message);
@@ -189,6 +220,7 @@ namespace CardanoGrille
                 {
                     Console.WriteLine(item);
                 }
+
                 try
                 {
                     int number = Int32.Parse(Console.ReadLine());
@@ -205,6 +237,7 @@ namespace CardanoGrille
                                 isExit = true;
                                 break;
                         }
+
                         if (isExit)
                         {
                             break;
@@ -220,11 +253,11 @@ namespace CardanoGrille
                     Console.WriteLine(_messageError);
                 }
             }
+
             return null;
         }
 
-        private StringBuilder ReadFileItem()
-        {
+        private StringBuilder ReadFileItem(){
             Console.WriteLine(_message);
 
             Console.WriteLine(_messageFilePath);
@@ -233,7 +266,7 @@ namespace CardanoGrille
                 string filePath = Console.ReadLine();
                 StringBuilder resultText = DataHelper.ReadFile(filePath);
 
-                Console.WriteLine(_messageSuccesfullFile+_messageReadFile);
+                Console.WriteLine(_messageSuccesfullFile + _messageReadFile);
                 return resultText;
             }
             catch
@@ -243,16 +276,15 @@ namespace CardanoGrille
             }
         }
 
-        private void WriteFileItem(StringBuilder inputString)
-        {
+        private void WriteFileItem(StringBuilder inputString){
             Console.WriteLine(_message);
 
             Console.WriteLine(_messageFilePath);
             try
             {
                 string filePath = Console.ReadLine();
-                DataHelper.WriteFile(filePath,inputString);
-                Console.WriteLine(_messageSuccesfullFile+_messageWriteFile);
+                DataHelper.WriteFile(filePath, inputString);
+                Console.WriteLine(_messageSuccesfullFile + _messageWriteFile);
             }
             catch
             {
@@ -260,8 +292,7 @@ namespace CardanoGrille
             }
         }
 
-        private void WriteDataMenu(StringBuilder inputText)
-        {
+        private void WriteDataMenu(StringBuilder inputText){
             while (true)
             {
                 Console.WriteLine(_message);
@@ -270,6 +301,7 @@ namespace CardanoGrille
                 {
                     Console.WriteLine(item);
                 }
+
                 try
                 {
                     int number = Int32.Parse(Console.ReadLine());
@@ -289,6 +321,7 @@ namespace CardanoGrille
                                 isExit = true;
                                 break;
                         }
+
                         if (isExit)
                         {
                             break;
@@ -306,9 +339,8 @@ namespace CardanoGrille
             }
         }
 
-        private bool IsCorrect(int number,int maxValue)
-        {
-            if(number>=0 && number <= maxValue)
+        private bool IsCorrect(int number, int maxValue){
+            if (number >= 0 && number <= maxValue)
             {
                 return true;
             }

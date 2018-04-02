@@ -44,6 +44,10 @@
   <ItemGroup>
     <Compile Include="CardanoGrille.cs" />
     <Compile Include="DataHelper.cs" />
+    <Compile Include="GrilleKey.cs" />
+    <Compile Include="GrilleKeys.cs" />
+    <Compile Include="MatrixHelpCardoneAlgoritm.cs" />
+    <Compile Include="MatrixService.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -52,6 +56,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="InputText.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

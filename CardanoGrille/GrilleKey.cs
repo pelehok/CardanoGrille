@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace CardanoGrille
 {
-    class Program
+    class GrilleKey
     {
-        static void Main(string[] args)
-        {
-            new Menu().Show();
-        }
+        public List<List<int>> Key { get; set; }
     }
 }
