@@ -59,6 +59,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="InputText.txt" />
+    <Content Include="RD.txt" />
+    <Content Include="x.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

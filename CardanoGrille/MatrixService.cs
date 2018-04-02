@@ -65,7 +65,7 @@ namespace CardanoGrille
                 {
                     if (matrixFirst[i][j] != 0)
                     {
-                        matrixFirst[i][j] = vector[i];
+                        res[i][j] = vector[i];
                     }
                 }
             }

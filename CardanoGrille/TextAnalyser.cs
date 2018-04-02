@@ -72,5 +72,23 @@ namespace CardanoGrille
 
             return inputText;
         }
+
+        public static List<StringBuilder> SplitToSize(StringBuilder inputText, int size){
+            List<StringBuilder> res =new List<StringBuilder>();
+            int lastIndex = 0;
+            for (int i = 1; i < inputText.Length; i++)
+            {
+                if (i % (size) == 0)
+                {
+                    StringBuilder temp = new StringBuilder(inputText.ToString(i - (size), size));
+                    res.Add(temp);
+                    lastIndex = i;
+                }
+            }
+
+            res.Add(new StringBuilder(inputText.ToString(lastIndex, inputText.Length - lastIndex)));
+
+            return res;
+        }
     }
 }

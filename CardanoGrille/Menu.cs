@@ -138,7 +138,7 @@ namespace CardanoGrille
             if (resultMenuFile != null)
             {
                 CardanoGrille cardanoGrille = new CardanoGrille();
-                int? num = GetKeyMenu();
+                int? num = 1;//GetKeyMenu();
                 if (num != null)
                 {
                     StringBuilder result = null;
@@ -263,7 +263,7 @@ namespace CardanoGrille
             Console.WriteLine(_messageFilePath);
             try
             {
-                string filePath = Console.ReadLine();
+                string filePath = @"../../x.txt";//Console.ReadLine();
                 StringBuilder resultText = DataHelper.ReadFile(filePath);
 
                 Console.WriteLine(_messageSuccesfullFile + _messageReadFile);
