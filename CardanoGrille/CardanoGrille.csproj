@@ -42,8 +42,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CardanoGrille.cs" />
+    <Compile Include="DataHelper.cs" />
+    <Compile Include="Menu.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TextAnalyser.cs" />
+    <Compile Include="UA_Alphabet.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
